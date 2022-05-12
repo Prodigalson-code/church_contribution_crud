@@ -1,0 +1,43 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parish Contribution 
+    {% block title %}
+        
+    {% endblock  %}
+        </title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/main.css" %}" rel="stylesheet">
+    <link href="{% static "css/dashboad.css" %}" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+   {% include "partials/topnav.html" %}
+
+
+    <main class="container">
+        
+        {% block content %}
+            
+        {% endblock content %}
+            
+      
+
+    </main>
+
+
+    <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+
+    <script src="{% static "js/dashboad.js" %}"></script>
+</body>
+
+</html>

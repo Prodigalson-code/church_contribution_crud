@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#addModal">
+    Add Contributor
+</button>
+
+<!--Create Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form method="post" action=" {% url 'create-contributor' %} ">
+        {% csrf_token %}
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Contributor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-floating mb-3">
+                    <select class="form-select" name="contributorName" id="floatingSelect" aria-label="Floating label select example">
+                        <option disabled>Select Church Member</option>
+                        
+                        {% for member in members  %}
+                            <option value="{{member.id}}">{{member.first_name |add:' '| add:member.last_name}}</option>
+                        {% endfor %}
+                            
+                       
+                
+                    </select>
+                    <label for="floatingSelect">Select Church Member</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <select class="form-select" name="contribution" id="floatingSelect" aria-label="Floating label select example">
+                        <option disabled>Select Contribution</option>
+                       
+                       {% for contribution in contributions  %}
+                        <option value="{{contribution.id}}">{{contribution.contribution_name}}</option>
+                       {% endfor %}
+                        
+                    </select>
+                    <label for="floatingSelect">Select Contribution</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="number" name="amountPaid" class="form-control" id="floatingPassword" placeholder="">
+                    <label for="floatingPassword">Amount Paid</label>
+                </div>
+               
+                
+
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Church Member</th>
+            <th scope="col">Contribution Name</th>
+            <th scope="col">Amount Paid</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for contributor  in contributors %}
+            
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{contributor.contributor_name.first_name|add:' '|add:contributor.contributor_name.last_name}}</td>
+            <td>{{contributor.contribution.contribution_name}}</td>
+            <td>{{contributor.amount_paid}}</td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'edit-contributor' contributor.id %}" role="button">Edit</a>
+                <!-- Edit Modal -->
+               
+                <a class="btn btn-danger" href="{% url 'delete-contributor' contributor.id %}" role="button">Delete</a>
+                <!-- Delete Modal -->
+               
+            </td>
+        </tr>
+        {% endfor %}
+
+
+    </tbody>
+
+</table>
+{% endblock content %}

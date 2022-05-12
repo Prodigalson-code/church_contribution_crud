@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <form method="post" action=" {% url 'edit-contributor' contributor.id %}">
+        {% csrf_token %}
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Contributor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
+                <div class="form-floating mb-3">
+                    <select class="form-select" name="contributorName" id="floatingSelect" aria-label="Floating label select example">
+                        <option disabled>Select Church Member</option>
+                        {% for member in members  %}
+                            {% if member.id == contributor.contributor_name.id %}
+                            <option value="{{member.id}}" selected hidden>{{member.first_name |add:' '| add:member.last_name}}</option>
+                            {% else %}
+                                <option value="{{member.id}}">{{member.first_name |add:' '| add:member.last_name}}</option>
+                            {% endif %}
+                          
+                        {% endfor %}
+                       
+                       
+                
+                
+                    </select>
+                    <label for="floatingSelect">Select Church Member</label>
+                </div>
+                
+                <div class="form-floating mb-3">
+                    <select class="form-select" name="contribution" id="floatingSelect" aria-label="Floating label select example">
+                        <option disabled>Select Contribution</option>
+                        
+                        {% for contribution in contributions  %}
+
+                        {% if contribution.id == contributor.contribution.id %}
+
+                        <option value="{{contribution.id}}" selected hidden>{{contribution.contribution_name}}</option>
+                        {% else %}
+                            <option value="{{contribution.id}}">{{contribution.contribution_name}}</option>
+                        {% endif %}
+                        
+                            
+                        {% endfor %}
+                            
+                
+                    </select>
+                    <label for="floatingSelect">Select Contribution</label>
+                </div>
+                
+                <div class="form-floating mb-3">
+                    <input type="number" name="amountPaid" class="form-control" id="floatingPassword" placeholder="" value="{{values.amount_paid}}">
+                    <label for="floatingPassword">Amount Paid</label>
+                </div>
+                   
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="submit" value="Save" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

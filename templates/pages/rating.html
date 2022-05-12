@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Contributor Name</th>
+                    <th scope="col">Contributor Last Name</th>
+                    <th scope="col">Rank </th>
+                </tr>
+            </thead>
+            <tbody>
+        
+                {% for rank  in member %}
+        
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{rank.first_name}}</td>
+                    <td>{{rank.last_name}}</td>
+                    <td>{{rank.amountpaid}}</td>
+                    
+                </tr>
+                {% endfor %}
+        
+        
+            </tbody>
+        
+        </table>
+    
+{% endblock content %}
+    

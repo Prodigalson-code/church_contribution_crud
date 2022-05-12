@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div>
+        <form method="post" action=" {% url 'edit-member' member.id %}">
+            {% csrf_token %}
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Church Member</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+    
+                        <div class="form-floating mb-3">
+                            <input type="text" name="firstname" class="form-control" id="floatingInput"
+                                value="{{values.first_name}}">
+                            <label for="floatingInput">First Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="middlename" class="form-control" id="floatingInput"
+                                value="{{values.middle_name}}">
+                            <label for="floatingInput">Middle Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="lastname" class="form-control" id="floatingInput"
+                                value="{{values.last_name}}">
+                            <label for="floatingInput">Last Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" name="age" class="form-control" id="floatingPassword" placeholder=""
+                                value="{{values.age}}">
+                            <label for="floatingPassword">Age</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="gender" id="floatingSelect"
+                                aria-label="Floating label select example">
+    
+                                <option disabled>Choose Gender</option>
+                                <option value="{{values.gender}}" selected hidden>{{values.gender}}</option>
+                                <option value="M">M</option>
+                                <option value="F">F</option>
+    
+                            </select>
+                            <label for="floatingSelect">Gender</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" name="address" placeholder="Leave a comment here"
+                                id="floatingTextarea2"  style="height: 100px">{{values.address}}</textarea>
+                            <label for="floatingTextarea2">Address</label>
+                        </div>
+    
+                    </div>
+                    <div class="modal-footer">
+                       
+                        <button type="submit" value="Save" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  
+{% endblock content %}

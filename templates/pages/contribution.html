@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add Contribution
+    </button>
+    
+    <!--Create Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form method="post" action=" {% url 'create-contribution' %} ">
+            {% csrf_token %}
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Contributions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" name="contributionName" class="form-control" id="floatingInput">
+                        <label for="floatingInput">Contribution Name</label>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" name="contributionDetail" class="form-control" id="floatingInput">
+                        <label for="floatingInput">Contribution Detail</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" name="contributionTargetedAmount" class="form-control" id="floatingPassword" placeholder="">
+                        <label for="floatingPassword">Target Amount</label>
+                    </div>
+                   
+                    
+
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Contribution Name</th>
+                <th scope="col">Contribution Details</th>
+                <th scope="col">Total Amount Targeted</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for contribution in contribution  %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{contribution.contribution_name}}</td>
+                    <td>{{contribution.contribution_details}}</td>
+                    <td>Tsh. {{contribution.contribution_targeted_amount}}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{% url 'edit-contribution' contribution.id %}" role="button">Edit</a>
+                        <!-- Edit Modal -->
+                
+                        <a class="btn btn-danger" href="{% url 'delete-contribution' contribution.id %}" role="button">Delete</a>
+                        <!-- Delete Modal -->
+                
+                    </td>
+                </tr>
+            {% endfor %}
+                
+           
+           
+        </tbody>
+        
+    </table>
+{% endblock content %}
+    
